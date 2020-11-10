@@ -19,13 +19,40 @@
     <hr />
     <div class="row mx-0">
       <div class="col-12 col-md-6 text-star mx-0">
+       
         <form
           @submit.prevent="subirimagen"
           @change="prevista"
           enctype="multipart/form-data"
         >
-          <input type="file" ref="file" id="file" accept="image/*" required />
-          &nbsp;
+          <input type="file" ref="file" id="file" accept="image/*" required /> <br><br>
+
+         <label for="nombre">Nombre Social</label> <br>
+          <input type="text" name="nombre" v-model="nombre"><br>
+          <label for="email">Email</label><br>
+            <input type="email" name="email" v-model="email">
+
+
+       <div v-if="loading">
+              <div class="mt-2">
+                <b-alert
+                  :show="dismissCountDown"
+                  dismissible
+                  variant="success"
+                  @dismissed="dismissCountDown = 0"
+                  @dismiss-count-down="countDownChanged"
+                >
+                  <p><strong>Success !</strong> Se Registro Correctamente</p>
+                  <b-progress
+                    variant="success"
+                    :max="dismissSecs"
+                    :value="dismissCountDown"
+                    height="4px"
+                  ></b-progress>
+                </b-alert>
+              </div>
+            </div>
+            
 
           <b-button
           class="mt-2"
@@ -34,40 +61,15 @@
             @click="showAlert"
             onsubmit="setTimeout(function () { window.location.reload(); }, 10)"
           >
-            <b-icon icon="cloud-upload" aria-hidden="true"></b-icon> Subir
-            Imagen
+            <b-icon icon="cloud-upload" aria-hidden="true"></b-icon> Enviar
+            
           </b-button>
+
+          
         </form>
-        <span>Seleccione una categoria: </span>
-        <div v-if="alerta === true">
-          <div class="mt-2">
-            <b-alert
-              :show="dismissCountDown"
-              dismissible
-              variant="danger"
-              @dismissed="dismissCountDown = 0"
-              @dismiss-count-down="countDownChanged"
-            >
-              <p><strong>Error</strong> Seleccione una o mas categorias</p>
-              <b-progress
-                variant="danger"
-                :max="dismissSecs"
-                :value="dismissCountDown"
-                height="4px"
-              ></b-progress>
-            </b-alert>
-          </div>
-        </div>
-        <div v-for="tag in cat" :key="tag.id" >
-
-          <label class="custom-checkbox mt-2">
-            <input type="checkbox"  :id="tag.nombre"  :value="tag.id"  v-model="checkedNames" />
-            <span class="checkmark"></span> 
-          </label>
-
 
          
-          <label class="ml-2" :for="tag.nombre">{{ tag.nombre }}</label>
+        
         </div>
       </div>
       <div
@@ -82,7 +84,7 @@
         </div>
       </div>
     </div>
-  </div>
+  
 </template>
 
 <script>
@@ -99,10 +101,20 @@ export default {
       alerta: false,
       dismissSecs: 5,
       dismissCountDown: 0,
+      nombre: '',
+      email: "",
+       variants: [ 'success'],
+       loading: false
     };
   },
   mounted() {
-    axios.get("http://localhost:1337/tags/me").then((response) => {
+    axios.get("http://localhost:1337/tags/me",{
+
+         headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+    }).then((response) => {
+      
       this.cat = response.data;
     });
   },
@@ -119,28 +131,48 @@ export default {
       this.subirimage = e.target.files[0];
     },
     subirimagen() {
-      if (this.checkedNames.length == 0) {
-        this.alerta = true;
-      } else {
+
+      this.loading = false
+       
         this.alerta = false;
         const token = localStorage.getItem("token");
         var formData = new FormData();
         let data = { tags: this.checkedNames };
-
         formData.append("files.imagen", this.subirimage);
-        formData.append("data", JSON.stringify(data));
+        //formData.append("data", JSON.stringify(data));
+        formData.append("data", JSON.stringify({
+            nombre: this.nombre,
+            email: this.email,
+            
+
+        }));
+
         console.log(this.subirimage);
+
         axios
           .post("http://localhost:1337/imagenes", formData, {
-            headers: {
+
+            nombre: this.nombre,
+             headers: {
               Authorization: "Bearer " + token,
               "Content-Type": "multipart/form-data",
+              //  "Content-Type": "application/json",
             },
-          })
+          },
+               
+         
+           
+         )
           .then((response) => {
-            this.$router.push("/home");
-          });
-      }
+            this.loading= true
+        //    this.$router.push("/home");
+          })
+           .catch((err) => {
+          console.log("Fallo");
+          this.error = true;
+        });
+          
+      
     },
   },
 };

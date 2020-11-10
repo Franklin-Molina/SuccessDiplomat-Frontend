@@ -44,7 +44,7 @@
                 class="mr-sm-2"
                  v-model="buscar"
                 placeholder="Search"
-                required="search"
+              
               ></b-form-input>
               <b-button size="sm" class="my-2 my-sm-0" type="submit"
                 >Search</b-button

@@ -69,12 +69,17 @@
   <li href="#" class="btnhome">
 
 
- <router-link to="/cargarimagen" id="col_border"><h1 class="text-align-center disable "  disabled>SUBIR IMAGENES</h1></router-link
+ <router-link to="/cargarimagen" id="col_border"><h1 class="text-align-center disable "  disabled>Crear Empresa </h1></router-link
         >
     
   </li>
 
 </div>
+
+
+
+
+
 
  <br> <br>
       
@@ -87,25 +92,13 @@
           <Galeria :items="items" />
 
           <b-button class="tam" variant="danger" @click="eliminar(items.id)"
-            >Eliminar</b-button
+            >Eliminar Empresa</b-button
           >
         </div>
       </div>
     </div>
     <div>
-      <h1> Registro empresa</h1>
-
-       <form @submit.prevent="register"  enctype="multipart/form-data">
-
-         <label for="nombre">Nombre social de la empresa</label> <br>
-        <input type="text" v-model="nombre"> <br>
-
-          <input type="file" ref="file" id="file" accept="image/*" required />
-
-        <button type="submit">Enviar </button>
-
-
-      </form>
+     
 
 
 
@@ -150,7 +143,7 @@ export default {
       user: {},
       tags: [],
       selectedFile: null,
-      complete: false,
+      complete: true,
       nombre: "",
     };
   },
