@@ -5,32 +5,20 @@
  
    <div class="box" >
   
-     <a :href="`/myproduct/${items.id}/mostrar`">
+  
     <div class="card">
       <div class="imgBx">
-         <img id="galeria"  :src="'http://localhost:1337'+items.imagen.url" class="img-fluid"  />
+         <img  :src="'http://localhost:1337'+items.foto.url" class="img-fluid"  />
       
       </div>
-      
-      <div class="details">
-     
-       
-       <h5 class="card-title">{{ items.user.username}}</h5>
-        
  
-      
-      </div>
-      
     </div>
-     </a>
   </div>
   </div>
 
 
 
- 
 
-  
 </template>
  
 
@@ -45,24 +33,7 @@ export default {
   props: ["items"],
 
   methods: {
-    onClick(){
-      
-      axios({
-        url:"http://localhost:1337/imagenes/" ,
-        method: 'GET',
-        responseType: 'blob',
-      }).then((response) =>{
-        var fileUrl= window.URL.createObjectURL(new Blob([response.data]))
-        var fileLink = document.createElement('a')
-      fileLink.href = fileUrl
-
-    fileLink.setAttribute('download','imagen.jpeg')
-    document.body.appendChild(fileLink)
-
-    fileLink.click()
-
-      })
-    }
+    
   }
 
 

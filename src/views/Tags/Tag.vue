@@ -1,6 +1,18 @@
 <template>
 
 <div>
+    
+     
+        <div class="container d-flex justify-content-center mb-4">
+        
+<li href="#" class="btnhome2">
+
+ <router-link to="/product" id="col_border"
+          ><h1 class="text-align-center">Volver</h1></router-link
+        >
+    
+  </li>
+        </div>
   <h1>Listado de Tags</h1>
   <a href="/tag/create">Crear </a> <br />
 

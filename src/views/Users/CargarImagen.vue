@@ -30,7 +30,7 @@
          <label for="nombre">Nombre Social</label> <br>
           <input type="text" name="nombre" v-model="nombre"><br>
           <label for="email">Email</label><br>
-            <input type="email" name="email" v-model="email">
+           <input type="email" name="email" v-model="email">
 
 
        <div v-if="loading">
@@ -103,8 +103,7 @@ export default {
       dismissCountDown: 0,
       nombre: '',
       email: "",
-       variants: [ 'success'],
-       loading: false
+      loading: false
     };
   },
   mounted() {

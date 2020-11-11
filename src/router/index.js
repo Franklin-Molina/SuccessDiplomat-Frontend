@@ -10,6 +10,10 @@ import RegUser from '../views/Users/Registro.vue';
 import Prueba from '../views/Prueba.vue';
 import CargaImagen from '../views/Users/CargarImagen.vue'
 import Product from '../views/Products/CreateProduct.vue'
+import MyProduct from '../views/Products/MyProduct.vue'
+import EditarProduct from '../views/Products/EditarProduct.vue'
+import MostrarProduct from '../views/Products/MostrarProduct.vue'
+
 
 
 
@@ -100,7 +104,34 @@ const routes = [{
             auth: true
         }
 
-    }
+    },
+    {
+        path: '/myproduct',
+        name: 'myProduct',
+        component: MyProduct,
+        meta: {
+            auth: true
+        }
+
+    },
+    {
+        //: los puintos son por que varian los id
+        path: '/product/:id/edit',
+        name: 'EditarProduct',
+        component: EditarProduct,
+        meta: {
+            auth: true
+        }
+    },
+    {
+        //: los puintos son por que varian los id
+
+        path: '/myproduct/:id/mostrar',
+        name: 'MostrarProduct',
+        component: MostrarProduct,
+
+    },
+
 
 
 

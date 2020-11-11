@@ -96,6 +96,7 @@
           >
         </div>
       </div>
+      
     </div>
     <div>
      
@@ -105,12 +106,16 @@
 
        <div class="ingre mt-2 mb-2">
                   <a id="col_border" href="/product">
-                    <button
-                      type="button"
-                      id="color"
-                      class="btn btn-dark btn-lg btn-block"
-                    >
+                    <button type="button" id="color" class="btn btn-dark btn-lg btn-block"   >
                      Crear Productos
+                    </button>
+                  </a>
+      </div>
+      
+       <div class="ingre mt-2 mb-2">
+                  <a id="col_border" href="/myproduct">
+                    <button   type="button"  id="color" class="btn btn-dark btn-lg btn-block" >
+                     Mis Productos
                     </button>
                   </a>
       </div>
